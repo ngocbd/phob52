@@ -1,0 +1,72 @@
+﻿html {
+    background-color: #af0000;
+    margin: 0;
+    padding: 0;
+}
+ h1, h2, h3, h4,h5 {
+    margin: 0;
+    padding: 0;
+    display:inline-block;
+    font-size:14px;
+    font-weight:normal;
+    color:#3d3d3d;
+}
+ol, ul, a {
+    list-style:none;
+    margin:0px; 
+    padding:0px;
+    text-decoration:none;
+    color:#3d3d3d;
+}
+    a:hover {
+        color:red;
+    }
+body {
+    background-color: #fff;
+    color: #3d3d3d;
+    font-size: 14px;
+    font-family:Verdana, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    width:940px;
+    margin:auto;
+}
+.body {
+      background-color:white;
+      width:100%;
+}
+.float-left {
+   float:left;
+}
+
+/* menu
+----------------------------------------------------------*/
+
+/* main layout
+----------------------------------------------------------*/
+.contain {
+    padding:20px;
+    min-height:600px;
+}
+.button-detail {
+    position:absolute;
+    right:5px;
+    bottom:25px;
+}
+/* site title
+----------------------------------------------------------*/
+.menu-nav {
+    margin-top:-3px;
+}
+.mutil_languge {
+    position:absolute;
+    right:0px;
+    color:white;
+}
+.old_news {
+    padding:20px 0px 30px 0px;
+}
+.title_detail h1 {
+    font-size:14px;
+    color:red;
+}

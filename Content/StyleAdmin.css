@@ -1,0 +1,127 @@
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
+    font-family:Arial;
+    line-height:20px;
+    font-size:13px;
+}
+
+a {
+    color:#262525;
+}
+.header-top-admin a {
+    color:#feffff;
+}
+.header-top-admin {
+    color:#feffff;
+}
+#body-admin {
+    width:100%;
+    margin:auto;
+}
+.header-top-admin {
+    width:100%;
+    background-image:url("/images/admin-header-bg.gif");
+    height:70px;
+    position:relative;
+}
+.clear {
+    float:none;
+    clear:both;
+}
+
+.header-menu-admin {
+    background:url("/Images/sprite.png") repeat-x scroll 0 -852px #A6D9F4;
+}
+.date-admin {
+    padding-top:7px;
+    height:22px;
+    width:100%;
+    background-color:#E7EFEF;
+    color:black;
+    border:1px solid #ACACAC;
+    padding-left:20px;
+}
+.body-admin {
+    margin:0px auto;
+    min-height:200px;
+    padding:20px;
+}
+.content-admin {
+    padding:20px;
+}
+    .content-admin h2 {
+       border-bottom:3px solid #DFDFDF;
+       color:#009FFF;
+       font-size:14px;
+       font-weight:700;
+    }
+
+.abutton {
+  background: none repeat scroll 0 0 #D1D1D1;
+    border: 1px solid #A7BAC5;
+    border-radius: 5px 5px 5px 5px;
+    color: #333333;
+    padding:3px 5px 3px 5px;
+    text-decoration: none;
+}
+    .abutton:hover {
+        background:#a7daf4;
+    }
+.table-admin {
+    border-collapse:collapse;
+    width:100%;
+}
+.table-admin th {
+    background:url("/Images/sprite.png") repeat-x scroll 0 -852px #A6D9F4;
+    border:#dddddd;
+    border:1px solid #A7BAC5;
+    padding:5px;
+    font-weight:normal;
+}
+
+.table-admin td {
+    border:1px solid #DDDDDD;
+    padding:5px;
+}
+.content-admin form {
+    padding-top:20px;
+}
+ .content-admin form legend {
+    color:#009FFF;
+    font-size:14px;
+    font-weight:bold;
+}
+.table-admin-create img {
+    vertical-align:bottom;
+}
+.table-admin-create td {
+    padding-right:10px;
+}
+
+.table-admin-create input,select {
+    width:300px;
+    height:25px;
+}
+.table-admin-create textarea {
+    width:300px;
+    height:100px;
+}
+.field-validation-error {
+    color:red;
+}
