@@ -1,0 +1,312 @@
+﻿@model Website.Models.Modules
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Xửa module";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<script src="@Url.Content("~/Content/Plugin/ckeditor/ckeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Plugin/ckfinder/ckfinder.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+<h2>Xửa lại danh mục module</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend><br /></legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name)<br />
+                    @Html.ValidationMessageFor(model => model.Name)<br />
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.NameEn)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.NameEn)<br />
+                    @Html.ValidationMessageFor(model => model.NameEn)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.ParentId)
+                </td>
+                <td>
+                    @*@Html.EditorFor(model => model.ParentId)*@
+                    @Html.DropDownList("ParentId",(IEnumerable<SelectListItem>) ViewData["category"])<br /><br />
+          
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Description)<br />
+                    @Html.ValidationMessageFor(model => model.Description)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.DescriptionEn)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.DescriptionEn)<br />
+                    @Html.ValidationMessageFor(model => model.DescriptionEn)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Image)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Image,new { @id = "txtUpload" }) <input id="btUpload" name="Chọn ảnh" type="button" value="Chọn Ảnh" style="width:100px; margin-left:20px;" /><br />
+                    @Html.ValidationMessageFor(model => model.Image)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Detail)
+                </td>
+                <td style="width:700px;">
+                    @Html.TextAreaFor(model => model.Detail, new {@id="txtdetail" })<br />
+                    @Html.ValidationMessageFor(model => model.Detail)<br />
+                    <script type="text/javascript">
+                        var editor;
+                        function createEditor(languageCode, id, height, width) {
+                            var editor = CKEDITOR.replace(id, {
+                                language: languageCode,
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            createEditor('vi', 'txtdetail', 300, 920);
+                        });
+                        </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.DetailEn)
+                </td>
+                <td style="width:700px;">
+                    @Html.TextAreaFor(model => model.DetailEn, new {@id="txtdetailEn" })<br />
+                    @Html.ValidationMessageFor(model => model.DetailEn)<br />
+                    <script type="text/javascript">
+                        var editor;
+                        function createEditor(languageCode, id, height, width) {
+                            var editor = CKEDITOR.replace(id, {
+                                language: languageCode,
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            createEditor('vi', 'txtdetailEn', 300, 920);
+                        });
+                        </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Sort)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Sort)<br />
+                    @Html.ValidationMessageFor(model => model.Sort)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.MetaTitle)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.MetaTitle)<br />
+                    @Html.ValidationMessageFor(model => model.MetaTitle)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.MetaTitleEn)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.MetaTitleEn)<br />
+                    @Html.ValidationMessageFor(model => model.MetaTitleEn)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.MetaDes)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.MetaDes)<br />
+                    @Html.ValidationMessageFor(model => model.MetaDes)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.MetaDesEn)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.MetaDesEn)<br />
+                    @Html.ValidationMessageFor(model => model.MetaDesEn)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Page)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Page)
+                    @Html.ValidationMessageFor(model => model.Page)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Category)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Category)
+                    @Html.ValidationMessageFor(model => model.Category)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Link)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Link)
+                    @Html.ValidationMessageFor(model => model.Link)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Active)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Active)<br />
+                    @Html.ValidationMessageFor(model => model.Active)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Display)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Display)<br />
+                    @Html.ValidationMessageFor(model => model.Display)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.menu1)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.menu1)
+                    @Html.ValidationMessageFor(model => model.menu1)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.menu2)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.menu2)
+                    @Html.ValidationMessageFor(model => model.menu2)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.menu3)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.menu3)
+                    @Html.ValidationMessageFor(model => model.menu3)
+                </td>
+            </tr>
+        </table>
+            @Html.HiddenFor(model => model.ParentId)
+
+        <p>
+            <input type="submit" value="Xửa lại" />
+        </p>
+    </fieldset>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

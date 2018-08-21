@@ -1,0 +1,95 @@
+﻿@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2 style="margin-bottom:20px;">Bảng thông tin điều khiển</h2>
+@Html.Telerik().TabStrip().Name("taptrip").Items(TabStrip => { TabStrip.Add().Text("Bảng điều khiển").Content(indexadmin().ToHtmlString());
+TabStrip.Add().Text("Top 10 sản phẩm").Content(TabTop10().ToHtmlString());
+}).SelectedIndex(0)
+    @helper indexadmin()
+{
+    @(Html.Telerik().Grid<Website.Models.ShoppingCartOder>()
+                    .Name("Shoppingorderlist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.Id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listShoppingCartOrder", "ShoppingCart")
+                               .Delete("DeleteShoppingCartOrder", "ShoppingCart");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Name)
+                               .Width(250)
+                            .ReadOnly();
+                           columns.Bound(x => x.Email)
+                               .Width(250);
+                           columns.Bound(x => x.Phone)
+                               .HeaderTemplate("Số điện thoại")
+                               .Width(150);
+                           columns.Bound(x => x.Address)
+                               .HeaderTemplate("Địa chỉ")
+                               .Width(300);
+                           columns.Bound(x => x.Detail)
+                               .HeaderTemplate("Nội dung")
+                               .Width(300);
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .HeaderTemplate("Đã xem")
+                               .Width(100);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("OrderDetail", "ShoppingCart", new { id = "<#= Id #>" }) + ">" + "Chi tiết" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Chi tiết")
+                               .Filterable(false);
+                           columns.Command(commands =>
+                           {
+                               //commands.Edit().Text("edit");
+                               commands.Delete().Text("delete");
+                           })
+                           .HeaderTemplate("Xóa bỏ")
+                           .Width(180);
+
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(10).Position(GridPagerPosition.Both)))
+    
+}
+@helper TabTop10()
+{
+    @(Html.Telerik().Grid<Website.Models.Products>()
+                    .Name("Productlisttop10-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.ProductId);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listproducttop10", "Product");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Image)
+                               .ClientTemplate("<img alt='<#= Image #>' src='<#= Image #>' width='150' />")
+                               .Width(250)
+                            .ReadOnly();
+                           columns.Bound(x => x.ProductName)
+                               .Width(250);
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .HeaderTemplate("Active")
+                               .Width(100);
+                           columns.Bound(x => x.ViewNumber)
+                               .HeaderTemplate("Số lần xem")
+                               .Width(100);
+
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(10).Position(GridPagerPosition.Both)))
+}

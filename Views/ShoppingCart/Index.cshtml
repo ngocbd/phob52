@@ -1,0 +1,105 @@
+﻿@model Website.Models.Product.ShoppingCartModels
+@using Website.Helper;
+@using MvcPaging;
+@{
+    ViewBag.Title = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function RemoveFromCart(id) {
+        if (confirm('Bạn thực sự muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            $.post("/ShoppingCart/RemoveFromCart", { "id": id },
+            function (data) {
+                if (data.Code == '0') {
+                    alert('Xóa sản phẩm khỏi giỏ hàng thành công');
+                    window.location = '/ShoppingCart';
+                }
+            });
+        }
+        return false;
+    }
+    function UpdateQuantity(id, quantity) {
+        $.post("/ShoppingCart/UpdateQuantity", { "id": id, "quantity": quantity },
+            function (data) {
+                if (data.Code == '0') {
+                    window.location = '/ShoppingCart';
+                }
+            });
+        return false;
+    }
+</script>
+
+<h1>Giỏ hàng của bạn</h1>
+
+@if (Model != null && Model.Cart != null)
+{
+    <table style="text-align: center; width: 99%;margin-top:20px;" border="0" class="table-cart">
+        <tr style="vertical-align: central; font-weight:bold; font-size:18px; height:45px;" class="title-cart">
+            <th style="width: 45%;">Sản Phẩm</th>
+            <th style="width: 20%;">Xoá </th>
+            <th style="width: 15%;">Số lượng</th>
+            <th style="width: 25%;">Tổng cộng</th>
+        </tr>
+        @foreach (var item in Model.Cart.ListItem)
+        {
+            var i = item.ProductName.ToString() + " s";
+            var y = item.ProductID.ToString();
+            var d = i + y;
+            <tr>
+                <td>
+                    <div>
+                        <img src="@item.ProductImage" style="float:left; margin-right: 15px; margin-left: 10px;width: 150px; max-height: 200px;" />
+                        <div class="itm-cartDetails">
+                            <h3><a href="/@RemoveUnicode.Replace(d).Replace(' ', '-').Replace('/', '-').Replace(':', '-').Replace('.', '-').Replace('"', '-').Replace('*', '-').Replace('#', '-').ToLower()">@item.ProductName</a></h3>
+                        </div>
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    <img src="/images/icon-del.png" onclick="return RemoveFromCart(@item.ProductID);"/></td>
+                <td style="text-align: center;">
+                    <select id="quantity_@item.ProductID" title="Số lượng" name="thanh toan" class="" onchange="return UpdateQuantity(@item.ProductID,this.value);">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    <script type="text/javascript">
+                        $('#quantity_@item.ProductID').val('@item.Quantity');
+                    </script>
+                </td>
+                <td style="text-align: center;"><b>@item.Total.ToString("N0") VND</b></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3" style="text-align: center;"><b style="font-weight:bold;">TỔNG THÀNH TIỀN</b></td>
+            <td>
+                @if (Model != null && @Model.Cart != null)
+                { 
+                    <strong>@Model.Cart.GetTotal().ToString("N0") VND</strong>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-weight:bold;"><b>THANH TOÁN</b></td>
+            <td>
+                @if (Model != null && @Model.Cart != null)
+                {
+                    <strong>@Model.Cart.GetTotal().ToString("N0") VND</strong>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-weight:bold;"></td>
+            <td><br />
+                <a href="/ShoppingCart/Order" style="border-radius:5px; background-color:#bfb9b9; padding:10px; text-decoration:none; color:black;">Mua hàng</a>
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,30 @@
+﻿@model List<Website.Models.Categorys>
+@using Website.Helper;
+
+@*<div class="title_slide_product_right" style="height: 30px; width: 100%;font-weight:700; font-size:21px; padding-top:10px; color:#47df05; border-bottom: 1px solid #47df05;"> Danh mục dịch vụ</div>*@
+<div class="list_product" style="padding-top:20px;">
+        @foreach (var item in Model)
+        {
+            var i = item.Name.ToString() + "_p";
+            var y = item.Id.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            var pathImage= item.Image;
+            string[] chuoi = pathImage.Split(new char[]{'/'});
+            int a=chuoi.Count();
+            int b=a-1;
+            <!--item-->
+            <div class="item_product">
+                <div class="image_product" style="padding-top:5px;">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                        <img src="@item.Image" style="width: 272px; height: 180px;" alt="@chuoi[b].Split('.')[0].ToString()" />
+                    </a>
+                </div>
+                <div class="detail_item_product">
+                    <h2><a href="/@RemoveUnicode.Replace(d).ToLower()" style="font-weight:bold; color:#f34764;">@item.Name</a></h2>
+                    <div>
+                        @Htmlhelper.catchuoi(item.Description,130)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>

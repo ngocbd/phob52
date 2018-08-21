@@ -1,0 +1,76 @@
+﻿
+@model IEnumerable<Website.Models.Modules>
+
+<style type="text/css">
+    ul.menu2_1 {
+        height:43px;
+        width:100%;
+        background-image:url("/Images/backgound_menu_xanh.png");
+    }
+ul.menu2_1>li{
+	display: inline-block;
+	float:left;
+	min-width:100px;
+	position:relative;
+	border-left:1px solid #61add3;
+	padding:0px 10px;
+    text-align:center;
+}
+ul.menu2_1>li>ul{
+	display:none;
+    z-index:5;
+}
+ul.menu2_1 li:hover> ul{
+	display:block;
+	position:absolute;
+}
+ul.menu2_1>li a{
+	text-decoration:none;
+	line-height:43px;
+    font-size:18px;
+    color:white;
+}
+ul.menu2_1>li a:hover{
+    color:#DC3A35;
+}
+
+
+ul.drop2_1{
+ list-style:none;
+ margin:0px;
+ padding:0px;
+ width:200px;
+ border:1px solid #f1f1f1;
+ background-image:url("/Images/backgound_menu_xanh.png");
+}
+ul.drop2_1 li,ul.drop2_1 li a{
+ border-bottom:1px solid #61add3;
+ height:40px;
+ line-height:40px;
+ padding-left:5px;
+ position:relative;
+    display: block;
+    text-decoration: none;
+    font-size:18px;
+    color:white;
+}
+ul.drop2_1 li:hover,ul.drop2_1 li a:hover{
+ display:block;
+    color: red;
+}
+ul.drop2_1 li > ul.drop2_1{
+ position:absolute;
+ top:0px;
+ left:200px;
+ display:none;
+}
+ul.drop2_1 li:hover > ul.drop2_1{
+ display:block;
+}
+	</style>
+
+@Html.Raw(ViewBag.menu2_1)
+
+
+
+

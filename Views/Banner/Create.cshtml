@@ -1,0 +1,86 @@
+﻿@model Website.Models.Banner
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Tạo mới";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<script src="@Url.Content("~/Content/Plugin/ckeditor/ckeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Plugin/ckfinder/ckfinder.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+<h2>Thêm mới banner</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend><br /></legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Đường dẫn ảnh
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.NameUrl, new { @id = "txtUpload" })
+                    <input id="btUpload" name="Chọn ảnh" type="button" value="Chọn Ảnh" style="width: 100px; margin-left: 20px;" /><br />
+                    @Html.ValidationMessageFor(model => model.NameUrl)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Đường dẫn URL
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Url)<br />
+                    @Html.ValidationMessageFor(model => model.Url)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.postion)
+                     
+                </td>
+                <td>
+                    <select id="postion" name="postion">
+                        <option value="Banner Top">Banner Top (tùy chọn size)</option>
+                        <option value="Banner Right">Banner Right</option>
+                        <option value="Banner Left">Banner Left</option>
+                        <option value="Banner Bottom">Banner Bottom</option>
+                        <option value="Banner Center">Banner Center ( 956 x 460 )</option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Actives
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.Active)<br />
+                    @Html.ValidationMessageFor(model => model.Active)<br />
+                </td>
+            </tr>
+
+        </table>
+    <p>
+            <input type="submit" value="Thêm mới" />
+        </p>
+    </fieldset>
+   
+
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

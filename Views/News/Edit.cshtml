@@ -1,0 +1,247 @@
+﻿@model Website.Models.Newss.NewsModel
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Thêm mới sản phẩm";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<script src="@Url.Content("~/Content/Plugin/ckeditor/ckeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Plugin/ckfinder/ckfinder.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    function onComplate() {
+        alert("Đã thêm mới");
+    }
+
+</script>
+
+<h2>Xửa lại bài viết</h2>
+@using (Html.BeginForm("Edit", "News", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "result", OnComplete = "onComplate()" }))
+{
+    @Html.ValidationSummary(true)
+
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Save"/>
+        </div>
+    <p></p>
+    Html.Telerik().TabStrip()
+      .Name("TabStrip")
+      .Items(TabStrip =>
+      {
+          TabStrip.Add().Text("Bài Viết").Content(TabInfo().ToHtmlString());
+          TabStrip.Add().Text("Danh mục").Content(TabModule().ToHtmlString());
+      }
+      ).SelectedIndex(0).Render();
+@helper TabInfo()
+{
+    <fieldset>
+        <legend>bài Viết</legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Title)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.news.Title)<br />
+                    @Html.ValidationMessageFor(model => model.news.Title)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.TitleEn)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.news.TitleEn)<br />
+                    @Html.ValidationMessageFor(model => model.news.TitleEn)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Description)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.news.Description)<br />
+                    @Html.ValidationMessageFor(model => model.news.Description)<br />
+                </td>
+            </tr>
+
+             <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.DescriptionEn)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.news.DescriptionEn)<br />
+                    @Html.ValidationMessageFor(model => model.news.DescriptionEn)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Image)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.news.Image, new { @id = "txtUpload" }) <input id="btUpload" name="Chọn ảnh" type="button" value="Chọn Ảnh" style="width:100px; margin-left:20px;" /><br />
+                    @Html.ValidationMessageFor(model => model.news.Image)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Detail)
+                </td>
+                <td style="width:940px;">
+                    @Html.TextAreaFor(model => model.news.Detail, new { @id = "txtdetail" })<br />
+                    @Html.ValidationMessageFor(model => model.news.Detail)<br /><br />
+                    <script type="text/javascript">
+                        var editor;
+                        function createEditor(languageCode, id, height, width) {
+                            var editor = CKEDITOR.replace(id, {
+                                language: languageCode,
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            createEditor('vi', 'txtdetail', 300, 920);
+                        });
+                        </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.DetailEn)
+                </td>
+                <td style="width:940px;">
+                    @Html.TextAreaFor(model => model.news.DetailEn, new { @id = "txtdetailEn" })<br />
+                    @Html.ValidationMessageFor(model => model.news.DetailEn)<br /><br />
+                    <script type="text/javascript">
+                        var editor;
+                        function createEditor(languageCode, id, height, width) {
+                            var editor = CKEDITOR.replace(id, {
+                                language: languageCode,
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            createEditor('vi', 'txtdetailEn', 300, 920);
+                        });
+                        </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Active)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.news.Active)<br />
+                    @Html.ValidationMessageFor(model => model.news.Active)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.Tag)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.news.Tag)<br />
+                    @Html.ValidationMessageFor(model => model.news.Tag)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.news.CreateDate)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.news.CreateDate, new { @Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") })
+                    @Html.HiddenFor(model => model.news.UserCreate, new { @value = User.Identity.Name })
+                    @Html.HiddenFor(model => model.news.NewsId)
+                    @Html.HiddenFor(model => model.news.ViewNumber)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    }
+
+@helper TabModule()
+{
+     @(Html.Telerik().Grid<Website.Models.Newss.NewsModel.NewsModuleModel>()
+                    .Name("newsmodule-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.Id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("ListModuleNews", "News", new { NewsId = Model.news.NewsId })
+                               .Insert("NewsModuleInsert", "News", new { NewsId = Model.news.NewsId })
+                               .Update("NewsModuleUpdate", "News")
+                               .Delete("NewsModuleDelete", "News");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.module)
+                               .Width(500);
+                           columns.Bound(x => x.IsFeaturedProduct)
+                               .Width(100);
+                           columns.Command(commands =>
+                           {
+                               commands.Edit().Text("edit");
+                               commands.Delete().Text("delete");
+                           })
+                           .Width(180);
+                       })
+                       .ToolBar(commands => commands.Insert())
+                       .ClientEvents(events => events.OnEdit("onProductCategoryEdit"))
+                       .EnableCustomBinding(true))
+    <script type="text/javascript">
+        function onProductCategoryEdit(e) {
+            var a = $("#module_repalce").text();
+            var b = a;
+            $('#module').replaceWith(b)
+        }
+    </script>
+    
+    <div id="module_repalce" style="display:none;">
+        @Html.DropDownList("module", (IEnumerable<SelectListItem>)ViewData["module"]).ToString()
+    </div>
+    
+    }
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

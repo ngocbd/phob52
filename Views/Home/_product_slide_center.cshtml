@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Website.Models.Products>
+@using Website.Helper;
+@{
+    var a = Model.Count();
+    var y = a /12;
+    var mod = a%12;
+    var i = 0;
+}
+
+<div class="slide_product_right_content">
+@for (int c = 0; c <= y; c++)
+{
+    if(c==y){
+        <div class="box_content_slide_product_right">
+        @for (i = 12 * c; i < 12 * y + mod; i++)
+        {
+            var pathImage = Model.ElementAt(i).Image;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int aa = chuoi.Count();
+            int bb = aa - 1;
+            var ii = @Model.ElementAt(i).ProductName.ToString() + " s";
+            var yy = @Model.ElementAt(i).ProductId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(ii + y).ToString();
+            
+            <div class="item_content_slide_product_right">
+
+            <div class="image_content_slide_product_right">
+                <img src="@Model.ElementAt(i).Image.Replace("Upload","Upload/_thumbs")" alt="@chuoi[bb].Split('.')[0].ToString()" style="padding-top: 2px; width:113px; height:87px;" />
+            </div>
+            <div class="title_content_slide_product_right">
+                <h3><a href="/@RemoveUnicode.Replace(d.ToString()).ToLower()">
+                    @Model.ElementAt(i).ProductName
+                    </a>
+                </h3>
+            </div> </div>
+        }
+        </div>
+    }
+    else{
+        <div class="box_content_slide_product_right">
+        @for (i = 12 * c; i < 12 *y; i++)
+        {<div class="item_content_slide_product_right">
+
+            <div class="image_content_slide_product_right">
+                <img src="@Model.ElementAt(i).Image.Replace("Upload","Upload/_thumbs")" style="padding-top: 2px; width:113px; height:87px;" />
+            </div>
+            <div class="title_content_slide_product_right">
+                <h3><a href="#">@Model.ElementAt(i).ProductName</a></h3>
+            </div> </div>
+        }
+        </div>
+    }
+    
+}
+    </div>

@@ -1,0 +1,34 @@
+﻿@model List<Website.Models.Products>
+@using Website.Helper;
+@using MvcPaging;
+@{
+    ViewBag.Title = @ViewData["breakcrum"];
+    Layout = "~/Views/Shared/_layoutpage.cshtml";
+}
+
+<div class="title_break_crumb">
+    @{
+        var a = ViewData["breakcrum"].ToString();
+        }
+    <a href="/home">Trang chủ</a> > <h1> @ViewData["breakcrum"]</h1>
+</div>
+<div class="title_slide_product_right" style="height: 30px; width: 100%;"></div>
+<div class="content_list_p">
+    @foreach (var item in Model)
+    {
+        var i = item.ProductName.ToString()+" s";
+        var y = item.ProductId.ToString();
+        var d =RemoveUnicode.ReplaceUrl(i + y).ToString();
+        <div class="content_p">
+            <div class="image_content_p">
+                <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                    <img src="@item.Image" style="max-height:198px; max-width:168px;" />
+                </a>
+            </div>
+            <div class="name_content_p">
+                <h3><a href="/@RemoveUnicode.Replace(d).ToLower()">@item.ProductName</a></h3>
+            </div>
+        </div>
+    }
+</div>
+

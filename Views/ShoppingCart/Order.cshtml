@@ -1,0 +1,86 @@
+﻿@model Website.Models.ShoppingCartOder
+@{
+    ViewBag.Title = "Đặt hàng quần bò giá rẻ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thông tin chuyển hàng</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend><br /></legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Họ và tên 
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name)<br />
+                    @Html.ValidationMessageFor(model => model.Name)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                   Email 
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Email)<br />
+                    @Html.ValidationMessageFor(model => model.Email)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                   Địa chỉ 
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Address)<br />
+                    @Html.ValidationMessageFor(model => model.Address)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Số điện thoại
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Phone)<br />
+                    @Html.ValidationMessageFor(model => model.Phone)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Nội dung
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Detail, new {@class="textarea" })<br />
+                    @Html.ValidationMessageFor(model => model.Detail)<br />
+                    @Html.HiddenFor(model=> model.DateOrder, new {@Value=DateTime.Now})
+                </td>
+            </tr>
+
+        </table>
+    <p>
+            <input type="submit" value="Hoàn thành"  style="width:100px;" />
+        </p>
+    </fieldset>
+   
+
+
+}
+
+

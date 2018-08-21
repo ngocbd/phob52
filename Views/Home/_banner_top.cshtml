@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Website.Models.Banner>
+ @*banner top*@
+
+@foreach (var item in Model)
+{
+    <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/@item.Url">
+        <img src="@item.NameUrl" alt="quán phở ngon hà nội" title="phở ngon ha noi"/>
+    </a>
+}

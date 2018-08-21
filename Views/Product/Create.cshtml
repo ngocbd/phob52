@@ -1,0 +1,240 @@
+﻿@model Website.Models.Product.ProductModel
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Thêm mới sản phẩm";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<script src="@Url.Content("~/Content/Plugin/ckeditor/ckeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/Plugin/ckfinder/ckfinder.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    function onComplate() {
+        alert("Đã thêm mới");
+    }
+
+</script>
+
+<h2>Thêm mới sản phẩm</h2>
+@using (Html.BeginForm("Create", "Product", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "result", OnComplete = "onComplate()" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="options">
+        <input type="submit" name="save" class="t-button" value="Save" />
+        <input type="submit" name="save-continue" class="t-button" value="Save and continues" />
+    </div>
+    <p></p>
+    Html.Telerik().TabStrip()
+      .Name("TabStrip")
+      .Items(TabStrip =>
+      {
+          TabStrip.Add().Text("Sản phẩm").Content(TabInfo().ToHtmlString());
+          TabStrip.Add().Text("Ảnh miêu tả").Content(TabImages().ToHtmlString());
+          TabStrip.Add().Text("Nhà sản xuất").Content(TabMenufacture().ToHtmlString());
+          TabStrip.Add().Text("Thuộc tính").Content(TabAttribute().ToHtmlString());
+          TabStrip.Add().Text("Danh mục").Content(TabCategory().ToHtmlString());
+      }
+      ).SelectedIndex(0).Render();
+    @helper TabInfo()
+{
+        <fieldset>
+            <legend>Products</legend>
+            <table class="table-admin-create">
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.ProductName)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.ProductName)<br />
+                        @Html.ValidationMessageFor(model => model.products.ProductName)<br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Description)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.products.Description)<br />
+                        @Html.ValidationMessageFor(model => model.products.Description)<br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Image)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.Image, new { @id = "txtUpload" })
+                        <input id="btUpload" name="Chọn ảnh" type="button" value="Chọn Ảnh(300x300)" style="width: 150px; margin-left: 20px; height:30px;" /><br />
+                        @Html.ValidationMessageFor(model => model.products.Image)<br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Detail)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.products.Detail, new { @id = "txtdetail" })<br />
+                        @Html.ValidationMessageFor(model => model.products.Detail)<br />
+                        <br />
+                        <script type="text/javascript">
+                            var editor;
+                            function createEditor(languageCode, id, height, width) {
+                                var editor = CKEDITOR.replace(id, {
+                                    language: languageCode,
+                                });
+                            }
+
+                            $(document).ready(function () {
+                                createEditor('vi', 'txtdetail', 300, 750);
+                            });
+                            
+                        </script>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Price)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.Price,new { @Value = 100 })<br />
+                        @Html.ValidationMessageFor(model => model.products.Price)<br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.SaleOff)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.SaleOff,new { @Value = 100 })<br />
+                        @Html.ValidationMessageFor(model => model.products.SaleOff)<br />
+                    </td>
+                </tr>
+                @*<tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Tag)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.Tag)<br />
+                        @Html.ValidationMessageFor(model => model.products.Tag)<br />
+                    </td>
+                </tr>*@
+                @*<tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.isSaleOff)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(model => model.products.isSaleOff)<br />
+                        @Html.ValidationMessageFor(model => model.products.isSaleOff)<br />
+                    </td>
+                </tr>*@
+                @*<tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.displayHome)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(model => model.products.displayHome)<br />
+                        @Html.ValidationMessageFor(model => model.products.displayHome)<br />
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.Active)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(model => model.products.Active)<br />
+                        @Html.ValidationMessageFor(model => model.products.Active)<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width: 150px;">
+                        @Html.LabelFor(model => model.products.CreateDate)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.products.CreateDate, new {@Value=DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")})
+                        @Html.HiddenFor(model => model.products.UserCreate, new { @Value = User.Identity.Name })
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    }
+
+    @helper TabMenufacture()
+{
+        <div>
+            <p></p>
+            Phải add Product trước khi thêm TabMenufacture
+        <p></p>
+        </div> 
+    }
+    @helper TabImages()
+{
+        <div>
+            <p></p>
+            Phải add sản phẩm trước khi trước khi thêm ảnh sản phẩm
+        <p></p>
+        </div> 
+    }
+    @helper TabAttribute()
+{
+        <div>
+            <p></p>
+            Phải add Product trước khi thêm TabMenufacture
+        <p></p>
+        </div> 
+    } 
+
+
+
+}
+@helper TabCategory()
+{
+    <div>
+        <p></p>
+        Phải add Product trước khi thêm TabMenufacture
+        <p></p>
+    </div> 
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,160 @@
+﻿@model Website.Models.Newss.NewsModel
+@using Website.Helper;
+
+
+<style type="text/css">
+    .main_content_detail {
+    }
+    .content_detail {
+        text-align:justify;
+    }
+    .title_detail_author {
+        padding:5px 0px 5px 0px;
+    }
+</style>
+
+@{
+    var cul = CultureHelper.GetCurrentCulture();
+    }
+@if (cul.Equals("vi"))
+{
+    ViewBag.Title = @Model.Title;
+    Layout = "~/Views/Shared/_Layout_two_colum.cshtml";
+    ViewBag.BeakCrum = ViewData["breakcrum"];
+    <div class="title_break_crumb">
+    @{
+    var a = ViewData["breakcrum"].ToString() + "_n";
+    var b = ViewData["id"].ToString(); ;
+    var c = RemoveUnicode.ReplaceUrl(a + b).ToString();
+        }
+    <a href="/home">Trang chủ</a> > <a href="/@CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(c).ToLower()"> @ViewData["breakcrum"]</a> > <h1>@Model.Title</h1>
+</div>
+    <div class="main_content_detail">
+    <div class="title_detail_author">@Model.CreateDate.Day - @Model.CreateDate.Month - @Model.CreateDate.Year | @Model.CreateDate.Hour : @Model.CreateDate.Minute | @Model.ViewNumber lượt xem</div>
+    <div class="content_detail">@Html.Raw(Model.Detail)</div>
+    <div class="comment_facebook">
+        <div class="fb-comments" style="padding-top:40px;" data-width="900px" data-href="@Request.Url.AbsoluteUri" data-numposts="10" data-colorscheme="light"></div>
+    </div>
+</div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1&appId=288813214616659";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="link_relation" style="padding-top:10px; float:left">
+<div class="new_news">
+    <div class="news_relation" style="color:red; font-weight:bold;">Tin mới</div>
+    <ul style="list-style:none; padding-left:30px;">
+        @foreach (var item in Model.listnews)
+        {
+            var i = item.Title.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = i + y;
+            <li class="li_titie">
+                <a href="/@RemoveUnicode.Replace(d).ToLower()" >
+                    @item.Title
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+<div class="old_news">
+    <div class="news_relation" style="color:red; font-weight:bold;">Tin cũ</div>
+    <ul style="list-style:none; padding-left:30px;">
+        @foreach (var item in Model.listoldnews)
+        {
+            var i = item.Title.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            <li class="li_titie">
+                <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                    @item.Title
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+</div>
+}
+else
+{
+    ViewBag.Title = @Model.TitleEn;
+    Layout = "~/Views/Shared/_Layout_two_colum.cshtml";
+    ViewBag.BeakCrum = ViewData["breakcrumEn"];
+    <div class="title_break_crumb">
+    @{
+    var a = ViewData["breakcrumEn"].ToString() + "_n";
+    var b = ViewData["id"].ToString(); ;
+    var c = RemoveUnicode.ReplaceUrl(a + b).ToString();
+        }
+    <a href="/home">Home</a> > <a href="/@CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(c).ToLower()"> @ViewData["breakcrumEn"]</a> > <h1>@Model.TitleEn</h1>
+</div>
+    <div class="main_content_detail">
+    <div class="title_detail_author">@Model.CreateDate.Day - @Model.CreateDate.Month - @Model.CreateDate.Year | @Model.CreateDate.Hour : @Model.CreateDate.Minute | @Model.ViewNumber View</div>
+    <div class="content_detail">@Html.Raw(Model.DetailEn)</div>
+    <div class="comment_facebook">
+        <div class="fb-comments" style="padding-top:40px;" data-width="900px" data-href="@Request.Url.AbsoluteUri" data-numposts="10" data-colorscheme="light"></div>
+    </div>
+</div>
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1&appId=288813214616659";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="link_relation" style="padding-top:10px; float:left">
+<div class="new_news">
+    <div class="news_relation" style="color:red; font-weight:bold;">New News</div>
+    <ul style="list-style:none; padding-left:30px;">
+        @foreach (var item in Model.listnews)
+        {
+            var i = item.TitleEn.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = i + y;
+            <li class="li_titie">
+                <a href="/@RemoveUnicode.Replace(d).ToLower()" >
+                    @item.TitleEn
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+<div class="old_news">
+    <div class="news_relation" style="color:red; font-weight:bold;">Old News</div>
+    <ul style="list-style:none; padding-left:30px;">
+        @foreach (var item in Model.listoldnews)
+        {
+            var i = item.TitleEn.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            <li class="li_titie">
+                <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                    @item.TitleEn
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+</div>
+}
+
+
+
+<style type="text/css">
+     .li_titie:before {
+        content: "• ";
+        color:#f34764;
+        padding-left:5px;
+        font-weight:bold;
+    }
+    .li_titie {
+        padding:5px 0px;
+    }
+</style>

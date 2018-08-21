@@ -1,0 +1,35 @@
+﻿@model List<Website.Models.Product.ProductModel>
+@using Website.Helper;
+@using MvcPaging;
+
+<div class="widget">
+    <div class="title_widget">
+        <h2 class="title_boder_bottom">TRÒ CHƠI MỚI</h2>
+    </div>
+    <div class="list_product">
+        @foreach (var item in Model)
+        {
+            var i = item.ProductName.ToString() + "_dt";
+            var y = item.ProductId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString() ;
+            var pathImage = item.ImageProduct;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int a = chuoi.Count();
+            int b = a - 1;
+            <!--item-->
+            <div class="item_product" style="margin:0px; width:250px;">
+                <div class="image_product">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                        <img src="@item.ImageProduct" style="width: 250px; height: 250px;" alt="@chuoi[b].Split('.')[0].ToString()" />
+                    </a>
+                </div>
+                <div class="detail_item_product">
+                    <h3><a href="/@RemoveUnicode.Replace(d).ToLower()">@item.ProductName</a></h3>
+                    @*<span class="price_product">Giá cũ : @item.PriceProduct.ToString("N0") vnd @if(item.PriceSaleProduct!=null){ <span> | </span><span style="color:red;"> Khuyến mại : @item.PriceSaleProduct.ToString("N0") vnd</span>}</span>*@
+                </div>
+                @*<span><a href="#" class="addtocart" onclick="AddToCart(@item.ProductId);"><img src="~/Images/cart.png" /></a></span>*@
+            </div>
+        }
+    </div>
+
+</div>

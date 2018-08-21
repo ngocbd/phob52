@@ -1,0 +1,23 @@
+﻿@using Website.Helper;
+@model Website.Models.Categorys
+@{
+    ViewBag.Title = Model.MetaTitle;
+    Layout = "~/Views/Shared/_Layout_two_colum.cshtml";
+    ViewBag.Des = Model.MetaDes;
+    ViewBag.BeakCrum = ViewData["breakcrum"];
+}
+
+<div>
+    @Html.Raw(Model.Detail)
+    <p />
+    <div class="fb-comments" data-width="640px" data-href="@Request.Url.AbsoluteUri" data-numposts="10" data-colorscheme="light"></div>
+</div> 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1&appId=288813214616659";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+

@@ -1,0 +1,92 @@
+﻿<style type="text/css">
+/*Menu đơn cấp bài 11*/
+.menu-top-admin{
+  list-style:none;
+  padding-left:10px;
+}
+    .menu-top-admin li {
+        display:inline-block;
+        position:relative;
+        padding:8px;
+        /*border-right: 1px solid #A7BAC5;*/
+    }
+    .menu-top-admin li img {
+        vertical-align:bottom;
+    }
+    .menu-top-admin li a {
+        text-decoration:none;
+    }
+    .menu-top-admin li ul {
+        display:none;
+        margin-top:8px;
+    }
+    .menu-top-admin li ul li {
+        width:150px;
+    }
+    .menu-top-admin li:hover ul{
+  display:block;
+  position:absolute;
+  background:#FFFA51;
+}
+</style>
+   <ul class="menu-top-admin">
+   <li>
+       <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Admin">
+           <img src="/Images/ico-dashboard.png" />
+           Trang chủ Admin
+       </a>
+   </li>
+   <li>
+       <img src="/Images/ico-customers.png" />
+       <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Admin/ListIndex">Quản lý User</a>
+   </li>
+   @*<li class="parent">
+       <img src="/Images/ico-catalog.png" />
+       <a href="#">Quản lý sản phẩm</a>
+      <ul>
+         <li>
+             <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/category">Danh mục category</a>
+         </li>
+         <li>
+             <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Product">Sản phẩm</a>
+         </li>
+         <li>
+             <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/menufacture">Nhà sản xuất</a>
+         </li>
+          <li>
+             <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Attribute">Thuộc tính</a>
+         </li>
+      </ul>
+   </li>*@
+       <li>
+           <img src="/Images/ico-promotions.png" />
+           <a href="#">Quản lý module</a>
+           <ul>
+               <li>
+                   <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/module">Danh mục module</a>
+               </li>
+               <li>
+                   <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/News">Bài viết</a>
+               </li>
+           </ul>
+       </li>
+       @*<li>
+           <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/YahooSupport">Hỗ trợ trực tuyến</a>
+       </li>*@
+       <li class="parent">
+       <img src="/Images/ico-catalog.png" />
+           <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Banner">Banner logo</a>
+       </li>
+       <li>
+           <img src="/Images/ico-promotions.png" />
+           <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Admin/ChangeInfoUser/@Session["UserId"]">Thay đổi thông tin cá nhân </a>
+       </li>
+       <li>
+           <img src="/Images/ico-promotions.png" />
+           <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/Footer">Quản lý footer </a>
+       </li>
+       <li>
+           <img src="/Images/ico-promotions.png" />
+           <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/KeywordUrl">Quản lý keyword </a>
+       </li>
+</ul>

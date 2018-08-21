@@ -1,0 +1,53 @@
+﻿@using Telerik.Web.Mvc.UI;
+
+@{
+    ViewBag.Title = "Danh sách liên hệ hỗ trợ ";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Danh sách hỗ trợ khách hàng</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { }, new {@class="abutton" })
+</p>
+
+@(Html.Telerik().Grid<Website.Models.YahooSupports>()
+                    .Name("Productlist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listYahoo", "YahooSupport");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Name)
+                            .ReadOnly();
+                           columns.Bound(x => x.Phone)
+                               .Width(150);
+                           columns.Bound(x => x.Yahoo)
+                               .Width(100);
+                           columns.Bound(x => x.Skyper)
+                               .Width(100);
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .HeaderTemplate("Active")
+                               .Width(100);
+                           columns.Bound(x => x.id)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= id #>" }) + ">" + "Sửa lại" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Sửa lại")
+                               .Filterable(false);
+                           columns.Bound(x => x.id)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= id #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(5).Position(GridPagerPosition.Both)))
+
+

@@ -1,0 +1,59 @@
+﻿@using Telerik.Web.Mvc.UI;
+@using MvcPaging;
+@{
+    ViewBag.Title = "Danh sách module";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Danh sách module</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { }, new {@class="abutton" })
+</p>
+@(Html.Telerik().Grid<Website.Models.Modules>()
+                    .Name("Categorylist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.Id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listModule", "Module");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Image)
+                               .ClientTemplate("<img alt='<#= Image #>' src='<#= Image #>' width='150' />")
+                               .Width(250)
+                            .ReadOnly();
+                           columns.Bound(x => x.Name);
+                           columns.Bound(x => x.NameEn);
+                           columns.Bound(x => x.menu1)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= menu1 #>.gif' />")
+                               .HeaderTemplate("Thuộc menu 1")
+                               .Width(100);
+                           columns.Bound(x => x.menu2)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= menu2 #>.gif' />")
+                               .HeaderTemplate("Thuộc menu 2")
+                               .Width(100);
+                           columns.Bound(x => x.menu3)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= menu3 #>.gif' />")
+                               .HeaderTemplate("Thuộc menu 3")
+                               .Width(100);
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .Width(100);
+                           columns.Bound(x=>x.Id)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= Id #>" }) + ">" + "Sửa lại" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Sửa lại")
+                               .Filterable(false);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= Id #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(20).Position(GridPagerPosition.Both)))

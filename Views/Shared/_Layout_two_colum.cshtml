@@ -1,0 +1,52 @@
+﻿@using Website.Helper;
+<!DOCTYPE html>
+<html lang="@CultureHelper.GetCurrentNeutralCulture()" dir="@(CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Pho B52</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/slider")
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/cycle.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="mutil_languge">
+                @Html.Partial("_ButtonMultiLanguage")
+            </div>
+            <div class="logo">
+                @Html.Action("_banner_top","Home")
+            </div>
+            <nav class="menu-nav">
+                        @Html.Action("_menu1", "Home")
+                    </nav>
+        </header>
+        <div class="body float-left">
+            <div class="contain">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="float-left">
+            @Html.Action("_footer", "home")
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $(".MENU1>li").click(function () {
+                $(".MENU1>li.ACTIVE-MENU").removeClass("ACTIVE-MENU");
+                $(this).addClass("ACTIVE-MENU");
+            });
+        });
+    </script>
+     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap" + (CultureHelper.IsRighToLeft() ? "-rtl" : ""))
+        @RenderSection("scripts", required: false)
+</body>
+</html>

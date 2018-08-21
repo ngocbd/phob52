@@ -1,0 +1,236 @@
+﻿@model IPagedList<Website.Models.Newss.NewsModel>
+@using Website.Helper;
+@using MvcPaging;
+
+<style type="text/css">
+    .title_des_news {
+        padding-left: 20px;
+        text-align: justify;
+        width: 635px;
+    }
+
+    .list_module_news {
+        width: 100%;
+    }
+
+    .news_list {
+        padding-left: 15px;
+        padding-top:20px;
+    }
+
+    .module_news {
+        padding: 25px;
+    }
+
+    .news_first {
+        padding-bottom: 8px;
+        padding-top: 8px;
+        height: 165px;
+        position:relative;
+    }
+
+    .image_list_module_news {
+        width: 230px;
+        float: left;
+    }
+
+    .title_news {
+        font-weight: bold;
+    }
+
+    .url_title:before {
+        content: "• ";
+        padding-left: 5px;
+        color: #f34764;
+    }
+
+    .title_news_sub {
+        padding: 5px 0px;
+    }
+
+    .h3_module_title {
+        font-weight: bold;
+        color: white;
+        line-height: 24px;
+        padding-left: 5px;
+    }
+
+    .title_widget a {
+        color: #f14320;
+        font-size: 24px;
+    }
+
+    .title_des_news a {
+        color: #f33;
+        font-size: 14px;
+    }
+    .title_des_news a:hover {
+        text-decoration:underline;
+    }
+
+    .date-time {
+        color: #960;
+        font-size: 12px;
+    }
+    .pager {
+        padding:20px;
+    }
+        .pager span {
+            padding:2px 5px;
+            color:red;
+            border:1px solid red;
+            margin-right:2px;
+        }
+</style>
+@{
+    var cul = CultureHelper.GetCurrentCulture();
+    }
+@if (cul.Equals("vi"))
+{
+    ViewBag.Title = ViewData["breakcrum"];
+    Layout = "~/Views/Shared/_Layout_two_colum.cshtml";
+    var category = Convert.ToBoolean(ViewData["category"]);
+    ViewBag.BeakCrum = ViewData["breakcrum"];
+<div class="content_news float-left">
+    @if (category == true)
+    {
+        <div class="title_break_crumb">
+            @{
+        var a = ViewData["breakcrum"].ToString() + " n";
+        var b = ViewData["id"].ToString(); ;
+        var c = RemoveUnicode.ReplaceUrl(a + b).ToString();
+            }
+            <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/home">Trang chủ</a> >
+            <h1 style="display: inline; border: 0px">@ViewData["breakcrum"] </h1>
+        </div>
+        var count = 0;
+        foreach (var item in Model)
+        {
+            var i = item.Title.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            var pathImage = item.Image;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int aa = chuoi.Count();
+            int bb = aa - 1;
+
+            var total_news = Model.Count();
+            count++;
+            
+
+                    <div class="introduct-index float-left" style="position:relative; padding-top:20px; padding-left:10px;">
+                <div class="image_list_module_news float">
+                            <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(d).ToLower()">
+                                <img src="@item.Image.Replace("/Images/Upload/images", "/Images/Upload/_thumbs/images")" alt="@chuoi[bb].Split('.')[0].ToString()" style="width:225px; height:150px;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;" />
+                            </a>
+                        </div>
+                        <div class="title_des_news float-left">
+                            <span class="des_news">@Htmlhelper.catchuoi(item.Description, 480)</span>
+                            <span class="button-detail" style="bottom:5px;">
+                                <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(d).ToLower()"style="font-weight:bold; " >
+                                    <img src="~/Content/Images/xemchitiet.jpg" />
+                                </a>
+                            </span>
+                        </div>
+            </div>
+              
+        }
+        <div class="pager float-left">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+        </div>
+    }
+    @if (category == false)
+    {
+      
+        <div style="float: left;">
+            <div class="main_content_detail">
+
+                    <div class="content_detail">@Html.Raw(ViewData["detailvi"])</div>
+                    <div class="comment_facebook">
+        <div class="fb-comments" style="padding-top:40px;" data-width="900px" data-href="@Request.Url.AbsoluteUri" data-numposts="10" data-colorscheme="light"></div>
+    </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+}
+else
+{
+    ViewBag.Title = ViewData["breakcrumEn"];
+    Layout = "~/Views/Shared/_Layout_two_colum.cshtml";
+    var category = Convert.ToBoolean(ViewData["category"]);
+    ViewBag.BeakCrum = ViewData["breakcrumEn"];
+<div class="content_news float-left">
+    @if (category == true)
+    {
+        <div class="title_break_crumb">
+            @{
+        var a = ViewData["breakcrum"].ToString() + " n";
+        var b = ViewData["id"].ToString(); ;
+        var c = RemoveUnicode.ReplaceUrl(a + b).ToString();
+            }
+            <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/home">Home</a> >
+            <h1 style="display: inline; border: 0px">@ViewData["breakcrumEn"] </h1>
+        </div>
+        var count = 0;
+        foreach (var item in Model)
+        {
+            var i = item.Title.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            var pathImage = item.Image;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int aa = chuoi.Count();
+            int bb = aa - 1;
+
+            var total_news = Model.Count();
+            count++;
+            
+
+                    <div class="introduct-index float-left" style="position:relative; padding-top:20px; padding-left:10px;">
+                <div class="image_list_module_news float">
+                            <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(d).ToLower()">
+                                <img src="@item.Image.Replace("/Images/Upload/images", "/Images/Upload/_thumbs/images")" alt="@chuoi[bb].Split('.')[0].ToString()" style="width:225px; height:150px;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;" />
+                            </a>
+                        </div>
+                        <div class="title_des_news float-left">
+                            <span class="des_news">@Htmlhelper.catchuoi(item.Description, 480)</span>
+                            <span class="button-detail" style="bottom:5px;">
+                                <a href="/@Website.Helper.CultureHelper.GetCurrentCulture()/@RemoveUnicode.Replace(d).ToLower()"style="font-weight:bold; " >
+                                    <img src="~/Content/Images/Detail.jpg" />
+                                </a>
+                            </span>
+                        </div>
+            </div>
+              
+        }
+        <div class="pager float-left">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+        </div>
+    }
+    @if (category == false)
+    {
+      
+        <div style="float: left;">
+            <div class="main_content_detail">
+ 
+                    <div class="content_detail">@Html.Raw(ViewData["detailen"])</div>
+                    <div class="comment_facebook">
+        <div class="fb-comments" style="padding-top:40px;" data-width="900px" data-href="@Request.Url.AbsoluteUri" data-numposts="10" data-colorscheme="light"></div>
+    </div>
+
+            </div>
+        </div>
+    }
+
+</div>}
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1&appId=288813214616659";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

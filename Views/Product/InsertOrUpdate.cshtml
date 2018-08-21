@@ -1,0 +1,186 @@
+﻿@using Telerik.Web.Mvc.UI;
+@model Website.Models.Products
+@{Html.Telerik().TabStrip()
+      .Name("TabStrip")
+      .Items(TabStrip =>
+      {
+          TabStrip.Add().Text("Sản phẩm").Content(TabInfo().ToHtmlString());
+          TabStrip.Add().Text("Nhà sản xuất").Content(TabMenufacture().ToHtmlString());
+          TabStrip.Add().Text("Thuộc tính").Content(TabAttribute().ToHtmlString());
+          TabStrip.Add().Text("Danh mục").Content(TabCategory().ToHtmlString());
+      }
+      ).SelectedIndex(0).Render();
+      }
+@helper TabInfo(){
+    <fieldset>
+        <legend>Products</legend>
+
+        @Html.HiddenFor(model => model.ProductId)
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Sản phẩm thuộc danh mục
+                </td>
+                <td>
+                    @Html.DropDownList("CategoryId",(IEnumerable<SelectListItem>) ViewData["category"])<br /><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.ProductName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ProductName)<br />
+                    @Html.ValidationMessageFor(model => model.ProductName)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Description)<br />
+                    @Html.ValidationMessageFor(model => model.Description)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Image)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Image,new { @id = "txtUpload" }) <input id="btUpload" name="Chọn ảnh" type="button" value="Chọn Ảnh" style="width:100px; margin-left:20px;" /><br />
+                    @Html.ValidationMessageFor(model => model.Image)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Detail)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Detail, new {@id="txtdetail" })<br />
+                    @Html.ValidationMessageFor(model => model.Detail)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Price)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Price)<br />
+                    @Html.ValidationMessageFor(model => model.Price)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.SaleOff)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.SaleOff)<br />
+                    @Html.ValidationMessageFor(model => model.SaleOff)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Tag)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Tag)<br />
+                    @Html.ValidationMessageFor(model => model.Tag)<br />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.isSaleOff)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.isSaleOff)<br />
+                    @Html.ValidationMessageFor(model => model.isSaleOff)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.displayHome)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.displayHome)<br />
+                    @Html.ValidationMessageFor(model => model.displayHome)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Active)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.Active)<br />
+                    @Html.ValidationMessageFor(model => model.Active)<br />
+                    @Html.HiddenFor(model => model.UserCreate, new {@value=User.Identity.Name })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.CreateDate)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.CreateDate, new {@Value=DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")})
+                    @Html.HiddenFor(model => model.UserCreate, new {@value=User.Identity.Name })
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    }
+
+@helper TabMenufacture(){
+    <table>
+        <tr>
+            <td>ádfasfsdf</td>
+            <td>ádfasfsdf</td>
+            <td>ádfasfsdf</td>
+            <td>ádfasfsdf</td>
+        </tr>
+    </table>
+    }
+
+@helper TabAttribute(){}
+
+@helper TabCategory(){}

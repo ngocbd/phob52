@@ -1,0 +1,88 @@
+﻿@model Website.Models.YahooSupports
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Thêm mới liên hệ hỗ trợ";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Thêm mới</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend><br /></legend>
+
+       <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name)<br />
+                    @Html.ValidationMessageFor(model => model.Name)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Phone)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Phone)<br />
+                    @Html.ValidationMessageFor(model => model.Phone)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Yahoo)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Yahoo)<br />
+                    @Html.ValidationMessageFor(model => model.Yahoo)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Skyper)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Skyper)<br />
+                    @Html.ValidationMessageFor(model => model.Skyper)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Active)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.Active)<br />
+                    @Html.ValidationMessageFor(model => model.Active)<br />
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

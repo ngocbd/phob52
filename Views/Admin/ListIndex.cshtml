@@ -1,0 +1,43 @@
+﻿
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Quản lý User";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Danh sách admin</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create",new { }, new {@class="abutton" })
+</p>
+@(Html.Telerik().Grid<Website.Models.Admins>()
+                    .Name("admin_list")
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listadmind", "Admin");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.FullName);
+                           columns.Bound(x => x.Email)
+                               .Width(100);
+                           columns.Bound(x => x.Phone)
+                               .Width(400);
+                           columns.Bound(x => x.CreateDate)
+                               .Width(400);
+                           columns.Bound(x => x.UserId)
+                              .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= UserId #>" }) + ">" + "Sửa lại" + "</a>")
+                              .Width(100)
+                              .HeaderTemplate("Sửa lại")
+                              .Filterable(false);
+                           columns.Bound(x => x.UserId)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= UserId #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(page=> page.PageSize(10))
+                       )
+

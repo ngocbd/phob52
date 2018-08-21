@@ -1,0 +1,52 @@
+﻿@model Website.Models.keyword_url
+
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Xửa lại";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Xửa lại</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+<fieldset>
+        <legend><br /></legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.keyword)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.keyword)<br />
+                    @Html.ValidationMessageFor(model => model.keyword)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.url_replace)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.url_replace)<br />
+                    @Html.ValidationMessageFor(model => model.url_replace)<br />
+                </td>
+            </tr>
+
+        </table>
+    <p>
+            <input type="submit" value="Xửa lại" />
+        </p>
+    </fieldset>
+    
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

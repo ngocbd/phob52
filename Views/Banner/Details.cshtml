@@ -1,0 +1,29 @@
+﻿@model Website.Models.Banner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Banner</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NameUrl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NameUrl)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.postion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.postion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

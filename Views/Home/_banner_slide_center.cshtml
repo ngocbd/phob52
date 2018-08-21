@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Website.Models.Banner>
+
+
+<div class="slider">
+    <ul>
+    @foreach (var item in Model)
+    {
+        var pathImage = item.NameUrl;
+        string[] chuoi = pathImage.Split(new char[] { '/' });
+        int a = chuoi.Count();
+        int b = a - 1;
+        <li>
+            <a href="#">
+                <img src="@item.NameUrl" style="width:940px;"  alt="@chuoi[b].Split('.')[0].ToString()" />
+            </a>
+        </li>
+    }
+        </ul>
+</div>

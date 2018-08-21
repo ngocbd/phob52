@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Website.Models.Banner>
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Danh sách banner";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { }, new {@class="abutton" })
+</p>
+
+@(Html.Telerik().Grid<Website.Models.Banner>()
+                    .Name("Productlist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.Id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listBanner", "Banner");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.NameUrl)
+                               .ClientTemplate("<img alt='<#= Image #>' src='<#= NameUrl #>' width='150' />")
+                               .Width(250)
+                               .HeaderTemplate("Hình ảnh")
+                            .ReadOnly();
+                           columns.Bound(x => x.Url)
+                               .HeaderTemplate("Đường dẫn");
+                           columns.Bound(x => x.postion)
+                               .HeaderTemplate("Vị trí");
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .HeaderTemplate("Active")
+                               .Width(100);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= Id #>" }) + ">" + "Sửa lại" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Sửa lại")
+                               .Filterable(false);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= Id #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(5).Position(GridPagerPosition.Both)))
+
+
+

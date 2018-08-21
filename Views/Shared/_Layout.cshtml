@@ -1,0 +1,70 @@
+﻿@using Website.Helper;
+<!DOCTYPE html>
+<html lang="@CultureHelper.GetCurrentNeutralCulture()" dir="@(CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="phở b52, phở bò, phở bò phố cổ, phở gia truyền,quán phở ngon ở hà nôi, phở ngon, phở không mỳ chính" />
+    <meta name="description" content="@ViewBag.Des" />
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/cycle.js"></script>
+    <script src="~/Scripts/slideProduct/floater_xlib.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    
+    @*@Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css" + (CultureHelper.IsRighToLeft() ? "-rtl" : ""))
+    @Scripts.Render("~/bundles/modernizr")*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".MENU1 > a").click(function () {
+                $(".MENU1 > a").removeClass("ACTIVE-MENU");
+                $(this).addClass("ACTIVE-MENU");
+            });
+        });
+        $(document).ready(function () {
+            $('.slideshow').cycle({
+                fx: 'fade',
+                speed: 600,
+                timeout: 5000,
+                next: '#next_slide',
+                prev: '#prev_slide'
+            });
+        });
+
+    </script>
+    
+</head>
+<body>
+        <header>
+            <div class="mutil_languge">
+                @Html.Partial("_ButtonMultiLanguage")
+            </div>
+            <div class="logo">
+                @Html.Action("_banner_top","Home")
+            </div>
+            <nav class="menu-nav">
+                        @Html.Action("_menu1", "Home")
+                    </nav>
+        </header>
+        <div class="body float-left">
+            <div class="slide-image float-left">
+                @Html.Action("_banner_slide_center","Home")
+            </div>
+            <div class="main-body float-left" style="min-height:600px; width:100%;">
+                @Html.Action("_list_module_news","Home")
+                @RenderBody()
+            </div>
+                
+        </div>
+        <footer>
+            @Html.Action("_footer","Home")
+        </footer>
+		
+        @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap" + (CultureHelper.IsRighToLeft() ? "-rtl" : ""))
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
+

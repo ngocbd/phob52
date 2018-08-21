@@ -1,0 +1,53 @@
+﻿@model Website.Models.Login
+
+@{
+    ViewBag.Title = "Trang đăng nhập";
+    Layout = "~/Views/Shared/Login.cshtml";
+}
+
+
+@using (Html.BeginForm()) {
+     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Đăng nhập</legend>
+        <div class="key" style="float:left;">
+                <img src="~/Images/k.jpg" />
+        </div>
+        <div>
+            <div class="editor-label">
+                User Name
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.UserName)<br />
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+
+            <div class="editor-label">
+                Password
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)<br />
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RememberMe)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.RememberMe)
+                @Html.ValidationMessageFor(model => model.RememberMe)
+            </div>
+
+            <p>
+                <input type="submit" value="Đăng nhập" />
+            </p>
+        </div>
+    </fieldset>
+}
+<div>Nếu bạn quên mật khẩu thì <a href="/admin/ResetPassword">vào đây</a> để lấy lại!!!</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

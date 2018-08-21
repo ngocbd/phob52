@@ -1,0 +1,85 @@
+﻿
+@using Telerik.Web.Mvc.UI;
+@using MvcPaging;
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Danh sách sản phẩm</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { }, new {@class="abutton" })
+</p>
+
+@(Html.Telerik().Grid<Website.Models.Products>()
+                    .Name("Productlist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.ProductId);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listproduct", "Product");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Image)
+                               .ClientTemplate("<img alt='<#= Image #>' src='<#= Image #>' width='150' />")
+                               .Width(250)
+                            .ReadOnly();
+                           columns.Bound(x => x.ProductName)
+                               .Width(250);
+                           columns.Bound(x => x.Active)
+                               .ClientTemplate("<img alt='' src='" + Url.Content("~/images/") + "active-<#= Active #>.gif' />")
+                               .HeaderTemplate("Active")
+                               .Width(100);
+                           columns.Bound(x => x.ProductId)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= ProductId #>" }) + ">" + "Sửa lại" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Sửa lại")
+                               .Filterable(false);
+                           columns.Bound(x => x.ProductId)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= ProductId #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(20).Position(GridPagerPosition.Both)))
+
+
+@*@using (Html.BeginForm("listproduct", "Product", FormMethod.Get))
+{
+
+    <fieldset>
+        <legend>Tìm kiếm</legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Danh mục tin :
+                </td>
+                <td>
+                    @Html.DropDownList("ParentId",(IEnumerable<SelectListItem>) ViewData["category"])<br /><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    Tên sản phẩm :
+                </td>
+                <td>
+                    @Html.TextBox("ProdudctName")
+                </td>
+            </tr>
+            </table>
+        <input type="submit"  value="Tìm kiếm"/>
+        </fieldset>
+}
+<p></p>*@

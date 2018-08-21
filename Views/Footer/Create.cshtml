@@ -1,0 +1,64 @@
+﻿@model Website.Models.Footer
+
+@{
+    ViewBag.Title = "Thêm mới";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+    <script src="@Url.Content("~/Content/Plugin/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Plugin/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+<h2>Thêm mới footer</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Footer</legend>
+            <table class="table-admin-create">
+                <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width:150px;">
+                        Nội dung Footer
+                    </td>
+                    <td style="width:1026px;">
+                        @Html.TextAreaFor(model => model.detail, new { @id = "detailfooter" })<br />
+                        @Html.ValidationMessageFor(model => model.detail)
+                        <script type="text/javascript">
+                            var editor;
+                            function createEditor(languageCode, id, height, width) {
+                                var editor = CKEDITOR.replace(id, {
+                                    language: languageCode,
+                                });
+                            }
+
+                            $(document).ready(function () {
+                                createEditor('vi', 'detailfooter', 400, 1160);
+                            });
+                        </script>
+                    </td>
+                </tr>
+                    <tr>
+                    <td>
+                        <img src="/Images/ico-help.gif" />
+                    </td>
+                    <td style="width:150px;">
+                        Active
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Actice)
+                        @Html.ValidationMessageFor(model => model.Actice)
+                    </td>
+                </tr>
+            </table>
+
+        <p>
+            <input type="submit" value="Thêm mới" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

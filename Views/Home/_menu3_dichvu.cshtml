@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Website.Models.Modules>
+@using Website.Helper;
+
+
+<div class="service_right">
+    <ul class="ul_content_service_right">
+
+        @foreach (var item in Model)
+        {
+            var i = item.Name.ToString() + " n";
+            var y = item.Id.ToString();
+            var d = RemoveUnicode.ReplaceUrl(i + y).ToString();
+            <li>
+                <div class="main_content_service_right">
+                    <div class="title_xanh">
+                        <h2>
+                            <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                            @item.Name
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="content_service_right">
+                        <div class="image_content_service_right">
+                            <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                            <img src="@item.Image" style="width:235px; height:165px;" />
+                            </a>
+                        </div>
+                        <div class="ngan_content_service_right">
+                            <img src="~/Images/ngan_content_service_right.jpg" />
+                        </div>
+                        <div class="Des_content_service_right">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

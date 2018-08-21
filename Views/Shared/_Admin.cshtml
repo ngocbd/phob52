@@ -1,0 +1,127 @@
+﻿@using Telerik.Web.Mvc.UI;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/StyleAdmin.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
+    @*<script src="~/Scripts/jquery-ui-1.10.3.custom.js"></script>*@
+    @*<script src="~/Content/Plugin/ckeditor/ckeditor.js"></script>
+        <script src="~/Content/Plugin/ckfinder/ckfinder.js"></script>*@
+    @Scripts.Render("~/bundles/modernizr")
+    @*@RenderSection("scripts", required: false)*@
+    @{if (Session["UserId"] == null)
+      {
+          FormsAuthentication.SignOut();
+          System.Web.Security.Roles.DeleteCookie();
+          Session.Clear();
+          Response.Redirect("/vi/admin/Login");
+      }
+    }
+</head>
+<body id="body-admin">
+    <header id="header-admin">
+        <div class="header-top-admin">
+            @Html.Partial("_LoginPartial")
+        </div>
+        <div class="clear"></div>
+        <div class="header-menu-admin">
+            @Html.Partial("_MenuHeaderAdminPartial")
+        </div>
+        <div class="clear"></div>
+        <div class="date-admin">
+            @DateTime.Now.Date
+        </div>
+    </header>
+    <div id="body">
+        <section class="body-admin">
+            <div class="content-admin">
+                @RenderBody()
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+            </div>
+        </div>
+    </footer>
+    <!--These need to be at the end of the page to ensure that all the controls requiring scripts have been rendered-->
+    @(Html.Telerik().StyleSheetRegistrar()
+              .DefaultGroup(group => group
+                                         .Add("telerik.common.min.css")
+                                         .Add("telerik.vista.min.css")
+                                         .Add("telerik.rtl.min.css")
+            //uncomment the lines below in order to combine and compress CSS files
+            //but in this case you'll have to add asset.axd file handler by Telerik to web.config file
+            //.Combined(true)
+            //.Compress(true)
+              ))
+    @{
+        Html.Telerik().ScriptRegistrar().Render();   
+    }
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script type="text/ecmascript">
+
+    $(document).ready(function () {
+        $('#addProductPicture').click(function () {
+            var istrue;
+            var url = $("#txtUploadimage").val();
+            var seoname = $("#images_SeoName").val();
+            var istrue = $("#images_istrue").is(":checked");
+            var productId = $("#product_productid").val();
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("ProductPictureAdd", "Product"))",
+                data: { "url": url, "seoname": seoname, "istrue": istrue, "productId": productId },
+                success: function (data) {
+                    var productpicturesGrid = $("#productpictures-grid");
+                    productpicturesGrid.data('tGrid').ajaxRequest();
+                    $('#addProductPicture').attr('disabled', false);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to add product picture.');
+                    $('#addProductPicture').attr('disabled', false);
+                }
+            });
+            alert("Đã thêm mới. Click vào icon refresh để hiển thị lại !");
+        });
+
+    });
+    $(function () {
+        $('.table-admin tr:even').css('background-color', '#cccccc');
+    });
+    $(document).ready(function () {
+        $('*[data-confirmprompt]').click(function (event) {
+            var promptText = $(this).attr('data-confirmprompt');
+            if (!confirm(promptText)) {
+                event.preventDefault();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#btUpload").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $('#txtUpload').val(fileUrl);
+            };
+            finder.popup();
+        });
+        $("#btUploadimage").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $('#txtUploadimage').val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>

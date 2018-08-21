@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Website.Models.Categorys>
+@using Website.Helper;
+@{
+    var i = 1;
+    }
+<div class="product-title">
+    <h3 style="color: white; padding-top: 20px; padding-left: 20px; font-size: 24px; margin: 0px; font-weight: normal;">Sản phẩm</h3>
+</div>
+<div class="list-product float-left">
+    <ul style="padding-left: 20px;">
+        @foreach (var item in Model)
+        {
+            var ii = item.Name.ToString() + "_p";
+            var y = item.Id.ToString();
+            var d = RemoveUnicode.ReplaceUrl(ii + y).ToString();
+            var aa = i %= 3;
+            var pathImage = item.Image;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int a = chuoi.Count();
+            int b = a - 1;
+            if (aa==0)
+            {
+                <li style="background-image:none;">
+                <div class="images-product">
+                    <img src="@item.Image.Replace("/Images/Upload/images", "/Images/Upload/_thumbs/images")" style="width: 240px; height: 200px;"  alt="@chuoi[b].Split('.')[0].ToString()" />
+                </div>
+                <div class="product-info" style="height: 100px;">
+                    <p class="product-name" style="line-height: 16px; font-size: 15px; color: #ed2024; margin-top: 10px; margin-bottom: 0px;">@item.Name</p>
+                    <p class="product-description" style="line-height: 16px; text-align: justify; margin-top: 5px;">@Htmlhelper.catchuoi(item.Description, 185)</p>
+                </div>
+                <div style="text-align: right; margin: 0px;">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                        <img src="/content/images/xemchitiet.jpg" /></a>
+                </div>
+            </li>
+
+            }
+            else { 
+                <li>
+                <div class="images-product">
+                    <img src="@item.Image.Replace("/Images/Upload/images", "/Images/Upload/_thumbs/images")" style="width: 240px; height: 200px;"  alt="@chuoi[b].Split('.')[0].ToString()" />
+                </div>
+                <div class="product-info" style="height: 100px;">
+                    <p class="product-name" style="line-height: 16px; font-size: 15px; color: #ed2024; margin-top: 10px; margin-bottom: 0px;">@item.Name</p>
+                    <p class="product-description" style="line-height: 16px; text-align: justify; margin-top: 5px;">@Htmlhelper.catchuoi(item.Description, 185)</p>
+                </div>
+                <div style="text-align: right; margin: 0px;">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                        <img src="/content/images/xemchitiet.jpg" /></a>
+                </div>
+            </li>
+
+            }
+            i++;
+        }
+    </ul>
+</div>
+

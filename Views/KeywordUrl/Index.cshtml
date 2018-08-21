@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Website.Models.keyword_url>
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Danh sách keyword";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Danh sách các keyword</h2>
+
+<p>
+   @Html.ActionLink("Thêm mới", "Create", new { }, new {@class="abutton" })
+</p>
+@(Html.Telerik().Grid<Website.Models.keyword_url>()
+                    .Name("KeywordUrllist-grid")
+                       .DataKeys(keys =>
+                       {
+                           keys.Add(x => x.Id);
+                       })
+                       .DataBinding(dataBinding =>
+                       {
+                           dataBinding.Ajax()
+                               .Select("listKeywordUrl", "KeywordUrl");
+                       })
+                       .Columns(columns =>
+                       {
+                           columns.Bound(x =>x.keyword)
+                             .ClientTemplate("<#= keyword #>")
+                            .ReadOnly();
+                           columns.Bound(x => x.url_replace);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a class='abutton' href=" + @Url.Action("Edit", new { id = "<#= Id #>" }) + ">" + "Sửa lại" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Sửa lại")
+                               .Filterable(false);
+                           columns.Bound(x => x.Id)
+                               .ClientTemplate("<a id='delete' class='abutton' href=" + @Url.Action("Delete", new { id = "<#= Id #>" }) + " >" + "Xóa bỏ" + "</a>")
+                               .Width(100)
+                               .HeaderTemplate("Xóa bỏ")
+                               .Filterable(false);
+                       })
+                       .EnableCustomBinding(true)
+                       .Pageable(settings => settings.PageSize(5).Position(GridPagerPosition.Both)))

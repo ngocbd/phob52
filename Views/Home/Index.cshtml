@@ -1,0 +1,17 @@
+﻿@using Website.MultiResource;
+@{
+    var cul = Website.Helper.CultureHelper.GetCurrentCulture();
+    }
+@if(cul.Equals("vi")){
+    ViewBag.Title =" Phở B52 | Phở hà nội, Phở phố cổ, địa chỉ quán phở ngon ở hà nội !";
+    ViewBag.Des = "pho b52";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}else{
+    ViewBag.Title =" Pho B52 ! Pho Ha Noi";
+    ViewBag.Des = "pho b52";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+

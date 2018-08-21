@@ -1,0 +1,146 @@
+﻿@model Website.Models.Admins
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Thêm mới User";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Thêm mới người quản trị</h2>
+
+    @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend></legend>
+        <table class="table-admin-create">
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.UserName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.UserName)<br />
+                    @Html.ValidationMessageFor(model => model.UserName)<br />
+                    @Html.ValidationMessage("CustomError")<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.FullName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.FullName)<br />
+                    @Html.ValidationMessageFor(model => model.FullName)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(model => model.Password)<br />
+                    @Html.ValidationMessageFor(model => model.Password)<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Email)<br />
+                    @Html.ValidationMessageFor(model => model.Email)<br />
+                    @Html.ValidationMessage("CustomError")<br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Sex)
+                </td>
+                <td>
+                    <select id="Sex" name="Sex">
+                        <option value="1">Nam</option>
+                        <option value="0">Nữ</option>
+                    </select><br /><br />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Phone)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Phone)<br />
+                    @Html.ValidationMessageFor(model => model.Phone)<br />
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.RoleId)
+                </td>
+                <td>
+                   @Html.DropDownList("RoleId", (IEnumerable<SelectListItem>)ViewData["role"])<br /><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.Active)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.Active)
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/Images/ico-help.gif" />
+                </td>
+                <td style="width:150px;">
+                    @Html.LabelFor(model => model.CreateDate)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.CreateDate, new {@Value=DateTime.Now})
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <input type="submit" value="Thêm mới" />
+        </p>
+    </fieldset>
+
+}
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Website.Models.News>
+@using Website.Helper;
+
+<div class="newsViewBetter float-left" style="padding-top:10px;">
+    <div class="title-product-right" style="height:40px;"><h5 style="color:white; padding-left:10px;line-height:31px;font-size:13px; font-weight:normal; ">Tin xem nhiều</h5></div>
+    <div>
+        @foreach (var item in Model)
+        {
+            var ii = item.Title.ToString() + "_d";
+            var y = item.NewsId.ToString();
+            var d = RemoveUnicode.ReplaceUrl(ii + y).ToString();
+            var pathImage = item.Image;
+            string[] chuoi = pathImage.Split(new char[] { '/' });
+            int aa = chuoi.Count();
+            int b = aa - 1;
+            <div class="news_first float-left">
+                <div class="image_list_module_news float">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                    <img src="@item.Image.Replace("/Images/Upload/images", "/Images/Upload/_thumbs/images")" style="width:50px; height:50px;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;" />
+                    </a>
+                </div>
+                <div class="title_news_view_better">
+                    <a href="/@RemoveUnicode.Replace(d).ToLower()">
+                    @Htmlhelper.catchuoi(item.Title, 100)
+                        </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style type="text/css">
+    .title_news_view_better a {
+        color:#7c1f22;
+    }
+    .title_news_view_better a:hover {
+        color:red;
+    }
+</style>
